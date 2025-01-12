@@ -1,10 +1,11 @@
 from rest_framework import serializers
+from tasks.serializers import TaskSerializer
 from .models import User
 
 class UserSerializer(serializers.ModelSerializer):
     #Serializer for user registration and details
     password = serializers.CharField(write_only=True)
-
+    tasks = TaskSerializer(many=True, read_only=True)
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'password', 'created_at')
